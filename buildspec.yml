@@ -11,13 +11,20 @@ phases:
       - printenv
       - echo "*** pre-build ***"
       - ruby --version
-      - bundle install --path vendor/bundle --without development
 
   build:
     commands:
       - echo "*** build ***"
+      - cd lambda1
+      - bundle install --path vendor/bundle --without development
+      - export FUNCTION_NAME=ruby-lambda1
       - zip -r function.zip *.rb vendor
-      - aws lambda create-function --function-name ruby-lambda1 --zip-file fileb://function.zip --handler lambda_handler --runtime ruby2.5 --role $LAMBDA_ROLE_ARN
+      - aws lambda create-function --function-name $FUNCTION_NAME --zip-file fileb://function.zip --handler $FUNCTION_NAME.lambda_handler --runtime ruby2.5 --role $LAMBDA_ROLE_ARN
+      - cd ../lambda2
+      - bundle install --path vendor/bundle --without development
+      - export FUNCTION_NAME=ruby-lambda2
+      - zip -r function.zip *.rb vendor
+      - aws lambda create-function --function-name $FUNCTION_NAME --zip-file fileb://function.zip --handler $FUNCTION_NAME.lambda_handler --runtime ruby2.5 --role $LAMBDA_ROLE_ARN
 
   post_build:
     commands:
