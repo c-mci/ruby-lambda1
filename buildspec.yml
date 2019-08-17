@@ -1,0 +1,27 @@
+---
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      ruby: 2.5
+
+  pre_build:
+    commands:
+      - printenv
+      - echo "*** pre-build ***"
+      - ruby --version
+      - 
+  build:
+    commands:
+      - echo "*** build ***"
+
+  post_build:
+    commands:
+      - echo "*** post_build ***"
+
+artifacts:
+  files:
+    - '**/*'
+
+---
