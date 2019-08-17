@@ -11,10 +11,13 @@ phases:
       - printenv
       - echo "*** pre-build ***"
       - ruby --version
-      - 
+      - bundle install --path vendor/bundle
+
   build:
     commands:
       - echo "*** build ***"
+      - zip -r ruby-lambda1.zip ruby-lambda1.rb vendor
+      - aws lambda update-function-code --function-name ruby-lambda1 --zip-file fileb://ruby-lambda1.zip
 
   post_build:
     commands:
