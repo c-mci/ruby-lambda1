@@ -17,8 +17,7 @@ phases:
     commands:
       - echo "*** build ***"
       - zip -r function.zip *.rb vendor
-      - aws lambda create-function --function-name ruby-lambda1 --zip-file fileb://function.zip \
-      - --handler lambda_handler --runtime ruby2.6 --role $LAMBDA_ROLE_ARN
+      - aws lambda create-function --function-name ruby-lambda1 --zip-file fileb://function.zip --handler lambda_handler --runtime ruby2.6 --role $LAMBDA_ROLE_ARN
 
   post_build:
     commands:
