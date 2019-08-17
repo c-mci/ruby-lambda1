@@ -17,7 +17,7 @@ phases:
     commands:
       - echo "*** build ***"
       - zip -r ruby-lambda1.zip ruby-lambda1.rb vendor
-      - aws lambda update-function-code --function-name ruby-lambda1 --zip-file fileb://ruby-lambda1.zip
+      - aws lambda create-function --function-name ruby-lambda1 --zip-file fileb://ruby-lambda1.zip
 
   post_build:
     commands:
